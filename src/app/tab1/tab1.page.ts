@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Product } from '../models/product.model';
 import { CartService } from '../services/cart.service';
+import { Router } from '@angular/router'
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-tab1',
@@ -11,6 +13,7 @@ export class Tab1Page {
 
   public products: Product[] = [];
   public productsFounds: Product[] = [];
+  public productArray:any[]=[];
   public filter = [
     "Abarrotes",
     "Frutas y Verduras",
@@ -37,7 +40,7 @@ export class Tab1Page {
     }
   ];
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService,private router: Router,private productService: ProductService) {
     this.products.push({
       name: "Aguacate",
       price: 100,
@@ -67,8 +70,11 @@ export class Tab1Page {
       photo: "https://picsum.photos/500/300?random"
     });
     this.productsFounds = this.products;
-
+    this.productsFounds=productService.getProducts();
+    
   }
+
+
 
   public getColor(type: string): string {
     const itemFound = this.colors.find((element) => {
@@ -93,5 +99,14 @@ export class Tab1Page {
     console.log(this.cartService.getCart());
   }
 
+  public openAddProductPage(){
+    this.router.navigate(['/add-product']);
+  }
+
+  passArrayToAnotherPage(product:Product) {
+    this.productArray.push(product);
+    this.productService.productArray = this.productArray;
+    this.router.navigate(['/edit-product']);
+  }
 
 }
