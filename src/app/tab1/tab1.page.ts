@@ -103,10 +103,6 @@ export class Tab1Page {
     this.router.navigate(['/add-product']);
   }
 
-  passArrayToAnotherPage(product:Product) {
-    this.productArray.push(product);
-    this.productService.productArray = this.productArray;
-    this.router.navigate(['/edit-product']);
-  }
+
 
 }

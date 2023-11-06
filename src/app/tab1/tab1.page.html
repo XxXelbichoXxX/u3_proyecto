@@ -60,7 +60,7 @@
           <ion-button expand="block" [routerLink]="['/edit-product', product.name,i]">
             Editar
           </ion-button>
-          <ion-button expand="block" (click)="addToCart(product, i)">
+          <ion-button expand="block" [routerLink]="['/delete-product',i]">
             Borrar
           </ion-button>
         </ion-card>

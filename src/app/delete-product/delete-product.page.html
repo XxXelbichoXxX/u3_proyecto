@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Borrar Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              Borrar
+            </ion-card-title>
+            <ion-card-subtitle>
+              Estas seguro que quieres borrar este producto
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+          </ion-card-content>
+          <ion-button expand="block" (click)="borrar()">
+            Aceptar
+          </ion-button>
+          <ion-button expand="block" (click)="cancelar()">
+            Cancelar
+          </ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

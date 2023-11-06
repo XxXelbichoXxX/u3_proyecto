@@ -13,7 +13,12 @@ const routes: Routes = [
   {
     path: 'edit-product/:name/:i',
     loadChildren: () => import('./edit-product/edit-product.module').then( m => m.EditProductPageModule)
+  },
+  {
+    path: 'delete-product/:i',
+    loadChildren: () => import('./delete-product/delete-product.module').then( m => m.DeleteProductPageModule)
   }
+
 
 ];
 @NgModule({
