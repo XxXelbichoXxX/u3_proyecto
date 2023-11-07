@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from '../models/product.model';
 import { CartService } from '../services/cart.service';
 import { ProductService } from '../services/product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -11,6 +11,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  public username: string = "";
   public products: Product[] = [];
   public productsFounds: Product[] = [];
   public filter = [
@@ -39,9 +40,15 @@ export class Tab1Page {
     }
   ];
 
-  constructor(private cartService: CartService, private router: Router, private ProductService: ProductService, public alertController: AlertController) {
+  constructor(private cartService: CartService, private router: Router, private ProductService: ProductService, public alertController: AlertController, private activateRoute: ActivatedRoute) {
     this.products = this.ProductService.getProducts();
     this.productsFounds = this.products;
+    this.activateRoute.paramMap.subscribe(params => {
+      const usernameParam = params.get('username');
+      if (usernameParam !== null) {
+        this.username = usernameParam;
+      }
+    });
   }
   async presentAlert(i: number) {
     const alert = await this.alertController.create({
