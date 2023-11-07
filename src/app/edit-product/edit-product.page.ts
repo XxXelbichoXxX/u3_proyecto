@@ -11,6 +11,7 @@ import { Product } from '../models/product.model';
   styleUrls: ['./edit-product.page.scss'],
 })
 export class EditProductPage implements OnInit {
+  public productForm: FormGroup;
   public index:any;
   public name: any;
   public product: Product[]=[];
@@ -26,6 +27,13 @@ export class EditProductPage implements OnInit {
     private router: Router, 
     private activateRoute: ActivatedRoute
   ) {
+    this.productForm = this.formBuilder.group({
+      name: ['',Validators.required],
+      price: [0,Validators.required],
+      description: [''],
+      type: ['',Validators.required],
+      photo: ['',Validators.required],
+    });
   }
 
 
@@ -41,7 +49,7 @@ export class EditProductPage implements OnInit {
     this.photo = this.product[  this.index].photo;
   }
 
-  async guardarCambios() {
+  async editProduct() {
     // Aquí puedes actualizar el objeto product con los valores editados
     // Por ejemplo:
     const editedProduct = {

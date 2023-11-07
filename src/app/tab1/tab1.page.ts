@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Product } from '../models/product.model';
 import { CartService } from '../services/cart.service';
-import { Router } from '@angular/router'
 import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -10,10 +11,8 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
   public products: Product[] = [];
   public productsFounds: Product[] = [];
-  public productArray:any[]=[];
   public filter = [
     "Abarrotes",
     "Frutas y Verduras",
@@ -40,42 +39,32 @@ export class Tab1Page {
     }
   ];
 
-  constructor(private cartService: CartService,private router: Router,private productService: ProductService) {
-    this.products.push({
-      name: "Aguacate",
-      price: 100,
-      description: "Lorem ipsum dolor sit amet.",
-      type: "Frutas y Verduras",
-      photo: "https://picsum.photos/500/300?random",
-    });
-    this.products.push({
-      name: "Coca Cola",
-      price: 20,
-      description: "Lorem ipsum dolor sit amet.",
-      type: "Abarrotes",
-      photo: "https://picsum.photos/500/300?random"
-    });
-    this.products.push({
-      name: "Jabón Zote",
-      price: 40,
-      description: "Lorem ipsum dolor sit amet.",
-      type: "Limpieza",
-      photo: "https://picsum.photos/500/300?random"
-    });
-    this.products.push({
-      name: "Aspirina",
-      price: 50,
-      description: "Lorem ipsum dolor sit amet.",
-      type: "Farmacia",
-      photo: "https://picsum.photos/500/300?random"
-    });
+  constructor(private cartService: CartService, private router: Router, private ProductService: ProductService, public alertController: AlertController) {
+    this.products = this.ProductService.getProducts();
     this.productsFounds = this.products;
-    this.productsFounds=productService.getProducts();
-    
   }
-
-
-
+  async presentAlert(i: number) {
+    const alert = await this.alertController.create({
+      header: '¡ATENCIÓN!',
+      message: '¿Deseas eliminar este producto?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            
+          }
+        }, {
+          text: 'Eliminar',
+          handler: () => {
+            this.ProductService.removeProduct(i);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
   public getColor(type: string): string {
     const itemFound = this.colors.find((element) => {
       return element.type === type;
@@ -99,10 +88,10 @@ export class Tab1Page {
     console.log(this.cartService.getCart());
   }
 
-  public openAddProductPage(){
+  public openAddProductPage() {
     this.router.navigate(['/add-product']);
   }
-
-
-
+  public openEditProductPage(product: Product, i: number) {
+    this.router.navigate(['/edit-product', product.name, i]);
+  }
 }
