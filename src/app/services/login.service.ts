@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 })
 export class LoginService {
   private users: User[] = [];
+  private userLog: User | null = null;
 
   constructor() {
     this.users.push({
@@ -29,9 +30,13 @@ export class LoginService {
   public validateUser(user: User): boolean {
     for (let u of this.users) {
       if (u.username == user.username && u.password == user.password) {
+        this.userLog = u;
         return true;
       }
     }
     return false;
+  }
+  public getUsername(): string {
+    return this.userLog?.username ?? 'Usuario no disponible';
   }
 }

@@ -4,6 +4,7 @@ import { CartService } from '../services/cart.service';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-tab1',
@@ -40,7 +41,9 @@ export class Tab1Page {
     }
   ];
 
-  constructor(private cartService: CartService, private router: Router, private ProductService: ProductService, public alertController: AlertController, private activateRoute: ActivatedRoute) {
+  constructor(private cartService: CartService, private router: Router, private ProductService: ProductService, 
+    public alertController: AlertController, private activateRoute: ActivatedRoute,
+    public loginService: LoginService) {
     this.products = this.ProductService.getProducts();
     this.productsFounds = this.products;
     this.activateRoute.paramMap.subscribe(params => {
@@ -100,5 +103,12 @@ export class Tab1Page {
   }
   public openEditProductPage(product: Product, i: number) {
     this.router.navigate(['/edit-product', product.name, i]);
+  }
+  public getUsername(): string {
+    return this.loginService.getUsername();
+  }
+
+  public logout() {
+    this.router.navigate(['/login-page']);
   }
 }

@@ -26,7 +26,7 @@ export class LoginPagePage implements OnInit {
   public async login() {
     const user = this.loginForm.value;
     if (this.loginService.validateUser(user)) {
-      this.router.navigate(['/tabs/tab1', user.username]);
+      this.router.navigate(['/tabs/tab1']);
     }
     else{
         const toast = await this.toastController.create({

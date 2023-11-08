@@ -1,7 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Productos </ion-title>
-   
+    <div class="ion-text-end">
+      <ion-label>Bienvenido {{getUsername()}}</ion-label>
+      <ion-button (click)="logout()">
+        <ion-icon name="exit-outline"></ion-icon>
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
